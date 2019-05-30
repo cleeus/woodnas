@@ -387,7 +387,7 @@ module atx_reset_switch(button_top_offset) {
     cylinder(h=wall_th-0.3,d1=0.95,d2=0.95);
 }
 
-module front_cover() {
+module front_cover(with_buttons) {
     w = case_width;
     h = case_height - wall_th;
     
@@ -429,36 +429,38 @@ module front_cover() {
         }
     }
 
-    //power switch
-    translate([
-        13+8,
-        0.75,
-        case_height-button_top_offset
-    ])
-    power_button();
-    
-    //reset switch
-    atx_reset_switch(button_top_offset);
-    
-    
-    //leds
-    translate([
-        13,
-        0.8,
-        case_height-button_top_offset  
-    ])
-    rotate([-90,0,0])
-    atx_led(col="red");
+    if(with_buttons)
+    {
+        //power switch
+        translate([
+            13+8,
+            0.75,
+            case_height-button_top_offset
+        ])
+        power_button();
+        
+        //reset switch
+        atx_reset_switch(button_top_offset);
+        
+        
+        //leds
+        translate([
+            13,
+            0.8,
+            case_height-button_top_offset  
+        ])
+        rotate([-90,0,0])
+        atx_led(col="red");
 
 
-    translate([
-        14,
-        0.8,
-        case_height-button_top_offset  
-    ])
-    rotate([-90,0,0])
-    atx_led(col="green");
-    
+        translate([
+            14,
+            0.8,
+            case_height-button_top_offset  
+        ])
+        rotate([-90,0,0])
+        atx_led(col="green");
+    } //with_buttons
     
 }
 
@@ -543,6 +545,10 @@ module left_cover_rails() {
             translate([0, case_depth-2*wall_th])
             upright_cover_rail();
             
+            bottom_rail_l = case_depth-2*wall_th;
+            bottom_rail_w = case_width-2*wall_th-atx_power_w-wall_th;
+            
+            echo(str("bottom rail: ", bottom_rail_l, "x", bottom_rail_w));
             
             //inner bottom
             translate([
@@ -551,8 +557,8 @@ module left_cover_rails() {
                 wall_th
             ])
             cube([
-                case_width-2*wall_th-atx_power_w-wall_th,
-                case_depth-2*wall_th,
+                bottom_rail_w,
+                bottom_rail_l,
                 wall_th
             ]);
         }
@@ -696,24 +702,33 @@ module explode(distance = [10, 0, 0], center = false, enable = true) {
         children();
     }
 }
+//explode(distance = [7, 7, 0], enable=false) { ... }
 
+translate([0,0,0]) {
+    apc_back_ups();
+    //lower_left_cover();
+    atx_power_supply();
+    atx_power_back_fixer();
+    mini_itx_board();
+    hdd_carrier_assembly();
 
-explode(distance = [7, 7, 0], enable=false) {
-apc_back_ups();
-//lower_left_cover();
-atx_power_supply();
-atx_power_back_fixer();
-mini_itx_board();
-hdd_carrier_assembly();
-
-front_cover();
-    
-left_cover_rails();
-left_cover();
-
-    
-back_cover();
-right_cover();
-bottom_cover();
-top_cover();
+    front_cover();
+        
+    left_cover_rails();
+    left_cover();
+        
+    back_cover();
+    right_cover();
+    bottom_cover();
+    top_cover();
 }
+
+
+* projection(cut=true) {
+    scale([10.0,10.0])
+        translate([0,0,-wall_th/2])
+        rotate([90,0,0])
+        front_cover();
+}
+
+
