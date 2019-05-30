@@ -1,5 +1,6 @@
 use <../modules/wn_sizes.scad>
 use <../modules/wn_front_cover.scad>
+use <../modules/wn_right_cover.scad>
 use <../modules/wn_bottom_cover.scad>
 use <../modules/wn_front_fan_box.scad>
 use <../modules/wn_left_cover_rails.scad>
@@ -41,6 +42,12 @@ module wn_covers() {
     
     translate([0,wn_wall_d(),0])
     wn_bottom_cover();
+    
+    translate([
+        wn_case_w()-wn_wall_d(),
+        wn_wall_d(),
+        0])
+    wn_right_cover();
 }
 
 
@@ -50,7 +57,7 @@ wn_left_cover_rails();
 
 
 translate([ //position in case
-    wn_case_w()-wn_wall_d()-wn_atx_power_w(),
+    wn_case_w()-wn_wall_d()-wn_atx_power_w()-0.01,
     wn_case_d()-wn_wall_d()-wn_atx_power_d(),
     wn_wall_d()+0.01
 ])
