@@ -54,7 +54,6 @@ module wn_covers() {
 
 wn_covers();
 
-translate([0,0,wn_atx_power_h()+wn_wall_d()])
 wn_hdd_carrier_assembly();
 wn_left_cover_rails();
 

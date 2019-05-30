@@ -32,6 +32,7 @@ function wn_fan_box_d() = wn_fan_d() + 15 /*buffer*/;
 function wn_fan_box_w() = wn_case_w() - 3*wn_wall_d();
 function wn_fan_box_h() = wn_case_h() - wn_fan_box_base() - wn_wall_d();
 
+function wn_hdd_rail_w() = (wn_fan_box_w() - wn_hdd_slot_w())/2;
 
 function wn_alpha() = 0.8;
 
