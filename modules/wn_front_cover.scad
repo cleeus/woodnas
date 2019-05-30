@@ -124,40 +124,49 @@ module wn_front_cover_atx_led(col="red") {
 
 module wn_front_cover_button_holes() {
     wall_d = wn_wall_d();
-
+    
+    //led1
+    translate([-wn_front_cover_button_distance/6,0,0])
+    rotate([90,0,0])
+    cylinder(h=2*wall_d,d=wn_front_cover_button_holes_led_d);
+    
+    //led2
+    translate([wn_front_cover_button_distance/6,0,0])
+    rotate([90,0,0])
+    cylinder(h=2*wall_d,d=wn_front_cover_button_holes_led_d);
+    
+    //power button
+    translate([0,0,wn_front_cover_button_distance*0.5])
     rotate([90,0,0])
     cylinder(h=2*wall_d,d=wn_front_cover_button_holes_power_d);
     
-    translate([-wn_front_cover_button_distance*1,0,0])
+    //reset button
+    translate([0,0,wn_front_cover_button_distance*1.5])
     rotate([90,0,0])
     cylinder(h=2*wall_d,d=wn_front_cover_button_holes_reset_d);
     
-    translate([-wn_front_cover_button_distance*2,0,0])
-    rotate([90,0,0])
-    cylinder(h=2*wall_d,d=wn_front_cover_button_holes_led_d);
-    
-    translate([-wn_front_cover_button_distance*2.5,0,0])
-    rotate([90,0,0])
-    cylinder(h=2*wall_d,d=wn_front_cover_button_holes_led_d);
 }
 
 
 module wn_front_cover_buttons() {
-    //power switch
-    wn_front_cover_atx_switch_with_wood_cover(wn_front_cover_button_holes_power_d-1);
-    
-    //reset switch
-    translate([-wn_front_cover_button_distance*1,0,0])
-    wn_front_cover_atx_switch_with_wood_cover(wn_front_cover_button_holes_power_d-1);
-        
-    //leds
-    translate([-wn_front_cover_button_distance*2,0,0])
+    //led1
+    translate([-wn_front_cover_button_distance/6,0,0])
     rotate([-90,0,0])
     wn_front_cover_atx_led(col="red");
 
-    translate([-wn_front_cover_button_distance*2.5,0,0])
+    //led2
+    translate([wn_front_cover_button_distance/6,0,0])
     rotate([-90,0,0])
     wn_front_cover_atx_led(col="green");
+    
+    //power switch
+    translate([0,0,wn_front_cover_button_distance*0.5])
+    wn_front_cover_atx_switch_with_wood_cover(wn_front_cover_button_holes_power_d-1);
+    
+    //reset switch
+    translate([0,0,wn_front_cover_button_distance*1.5])
+    wn_front_cover_atx_switch_with_wood_cover(wn_front_cover_button_holes_power_d-1);
+        
 }
 
 
@@ -202,9 +211,9 @@ module wn_front_cover(with_buttons) {
         //button holes
         {
             translate([
-                case_w - wall_d - wn_front_cover_button_distance,
-                1.5*wall_d,
-                case_h - button_top_offset
+                3*wall_d + wn_front_cover_button_distance/2,
+                wall_d*1.5,
+                2.5*wall_d
             ])
             wn_front_cover_button_holes();
         }
@@ -213,9 +222,9 @@ module wn_front_cover(with_buttons) {
     if(with_buttons)
     {
         translate([
-            case_w - wall_d - wn_front_cover_button_distance,
+            3*wall_d + wn_front_cover_button_distance/2,
             wall_d,
-            case_h - button_top_offset
+            2.5*wall_d
         ])
         wn_front_cover_buttons();
     } //with_buttons

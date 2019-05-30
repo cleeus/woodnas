@@ -4,7 +4,7 @@ use <wn_sizes.scad>
 
 module wn_u_profile(length) {
   u_profile_wall_d = 1.5;
-  u_profile_h = wn_thin_wall_d() + 2+u_profile_wall_d;
+  u_profile_h = wn_u_profile_h();
   
   color(wn_colors()[11])
   difference() {

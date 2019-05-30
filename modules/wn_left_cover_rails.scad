@@ -17,11 +17,11 @@ module wn_rail_bottom_inner() {
   ]);
 }
 
-module wn_rail_front_inner() {
-  front_rail_l = wn_case_h() - 3*wn_wall_d();
+module wn_rail_front_inner_bottom() {
+  front_rail_l = wn_fan_box_base()-wn_wall_d();
   front_rail_w = wn_fan_box_d() + wn_thin_wall_d();
   
-  echo(str("front rail: ", front_rail_l, "x", front_rail_w));
+  echo(str("front rail bottom part: ", front_rail_l, "x", front_rail_w));
 
   color(wn_rail_color)
   cube([
