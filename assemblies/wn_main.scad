@@ -3,6 +3,7 @@ use <../modules/wn_front_cover.scad>
 use <../modules/wn_bottom_cover.scad>
 use <../modules/wn_front_fan_box.scad>
 use <../modules/wn_left_cover_rails.scad>
+use <../modules/wn_atx_power_supply.scad>
 
 
 
@@ -46,3 +47,13 @@ module wn_covers() {
 wn_covers();
 wn_hdd_carrier_assembly();
 wn_left_cover_rails();
+
+
+translate([ //position in case
+    wn_case_w()-wn_wall_d()-wn_atx_power_w(),
+    wn_case_d()-wn_wall_d()-wn_atx_power_d(),
+    wn_wall_d()+0.01
+])
+translate([ wn_atx_power_w(), 0, wn_atx_power_h()]) //center on 0,0,0
+rotate([0,180,0]) //turn upside-down
+wn_atx_power_supply();
