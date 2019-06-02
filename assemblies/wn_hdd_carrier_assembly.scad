@@ -13,6 +13,8 @@ module wn_hdd_carrier_assembly()
     ])
     wn_front_fan_box();
 
+    echo(str("hdd slot: ", wn_hdd_slot_h()));
+    
     //carriers
     for(carrier=[0:wn_hdd_count()-1]) {
         translate([0,0,wn_atx_power_h()+wn_wall_d()])
@@ -22,7 +24,6 @@ module wn_hdd_carrier_assembly()
             wn_hdd_slot_h()/2 + carrier*wn_hdd_slot_h()])
         wn_hdd_carrier();
     }
-  
     
     //back rail
     translate([

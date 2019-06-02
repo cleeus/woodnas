@@ -1,11 +1,14 @@
 include <wn_renderctrl.scad>
 use <wn_sizes.scad>
 
+
 module wn_hdd_carrier() {
     //must be a little bit bigger then slot to fit into rails
     carrier_w = wn_hdd_carrier_w();
     carrier_d = wn_hdd_carrier_d();
     carrier_h = wn_thin_wall_d();
+    
+    echo(str("hdd carrier: ", wn_hdd_carrier_w(), " x ", wn_hdd_carrier_d()));
     
     drive_w = 102;
     drive_h = 26;
@@ -25,17 +28,3 @@ module wn_hdd_carrier() {
 }
 
 
-module wn_hdd_carrier_stack() {
-    
-    translate([0,0, 0*hdd_slot_h])
-    wn_hdd_carrier();
-    
-    translate([0,0, 1*hdd_slot_h])
-    wn_hdd_carrier();
-    
-    translate([0,0, 2*hdd_slot_h])
-    wn_hdd_carrier();
-    
-    translate([0,0, 3*hdd_slot_h])
-    wn_hdd_carrier();
-}

@@ -73,6 +73,7 @@ module wn_front_fan_box() {
     //sieve
     translate([0, wn_fan_box_d(), wall_d+wn_u_profile_wall_d()])
     difference() {
+        echo(str("hdd fan sieve: ", fan_box_w, " x ", sieve_h));
         cube([
             fan_box_w,
             thin_wall_d,
